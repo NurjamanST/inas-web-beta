@@ -26,6 +26,22 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        $user = Auth::user();
+
+        if (
+            !$user->institution ||
+            (int) $user->institution->is_active !== 1
+        ) {
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return back()->withErrors([
+                'email' => 'Institution is not active.',
+            ]);
+        }
+
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard', absolute: false));

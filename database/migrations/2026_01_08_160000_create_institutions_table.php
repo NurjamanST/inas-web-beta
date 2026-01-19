@@ -13,9 +13,11 @@ return new class extends Migration
             $table->string('institution_name');
             $table->text('address')->nullable();
             $table->string('logo')->nullable();
+            $table->decimal('salary', 12, 2);
             $table->enum('type', ['SMK/A', 'Pesantren', 'MBG']);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

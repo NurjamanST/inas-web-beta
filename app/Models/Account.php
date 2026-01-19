@@ -2,23 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable, SoftDeletes;
 
+    protected $table = 'accounts';
     protected $primaryKey = 'account_id';
-    protected $fillable = [
-        'email',
-        'password',
-        'role_id',
-        'institution_id',
-        'is_active',
-    ];
+    protected $guarded = [];
 
     protected $hidden = [
         'password',
@@ -37,6 +32,6 @@ class Account extends Authenticatable
 
     public function institution()
     {
-        return $this->belongsTo(Institution::class, 'institution_id');
+        return $this->belongsTo(Institution::class, 'institution_id','institution_id');
     }
 }
