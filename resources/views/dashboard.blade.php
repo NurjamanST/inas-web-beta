@@ -20,6 +20,12 @@
                         {{ __("Hallo Admin MBG") }}
                     @endif
                 </div>
+                <div class="p-6 text-gray-900">
+                    <a href="{{ route('data.account') }}">Account</a>
+                </div>
+                <div class="p-6 text-gray-900">
+                    <a href="{{ route('data.personal') }}">Personal</a>
+                </div>
             </div>
         </div>
     </div>

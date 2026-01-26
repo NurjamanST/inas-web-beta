@@ -15,7 +15,6 @@ class AccountSeeder extends Seeder
     public function run(): void
     {
         Account::create([
-            'institution_id' => 1,
             'email' => 'superadmin@gmail.com',
             'password' => Hash::make('123456789'),
             'role_id' => 1

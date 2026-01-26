@@ -28,6 +28,14 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
+        // ✅ 1. SUPERADMIN BYPASS
+        if ((int) $user->role_id === 1) {
+            $request->session()->regenerate();
+
+            return redirect()->intended(route('dashboard', absolute: false));
+        }
+
+        // ✅ 2. NON-SUPERADMIN WAJIB PUNYA INSTITUSI AKTIF
         if (
             !$user->institution ||
             (int) $user->institution->is_active !== 1
@@ -46,6 +54,7 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()->intended(route('dashboard', absolute: false));
     }
+
 
     /**
      * Destroy an authenticated session.
